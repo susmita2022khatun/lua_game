@@ -18,6 +18,8 @@ function love.load()
     main_font = love.graphics.newFont('Pixellettersfull-BnJ5.ttf', 16)
     small_font = love.graphics.newFont('Pixellettersfull-BnJ5.ttf', 16)
 
+    sound = {['collide'] = love.audio.newSource('metal-hit-84608.mp3', 'static')}
+    
     push:setupScreen(VIRTUAL_WIDTH, VIRTUAL_HEIGHT, WINDOW_WIDTH, WINDOW_HEIGHT, {
         fullscreen = false,
         resizable = false,
@@ -55,6 +57,7 @@ function love.update(dt)
         m1 = (box_1.dimension) * (box_1.dimension)
         m2 = (box_2.dimension) * (box_2.dimension)
         if box_1:collide(box_2) then
+            sound['collide']:play()
             collision_count = collision_count + 1
             a = box_1.dx
             b = box_2.dx
@@ -63,6 +66,7 @@ function love.update(dt)
         end
 
         if wall:collide(box_2) then
+            sound['collide']:play()
             collision_count = collision_count + 1
             box_2.dx = -1*box_2.dx
         end
